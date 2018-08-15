@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Healthy</string>
+    <string name="username">User ID</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="new_regsiter">Register New Account</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="register">REGISTER NEW ACCOUNT</string>
+    <string name="bmi_height">Height (cm)</string>
+    <string name="bmi_width">Weight (cm)</string>
+    <string name="bmi_button_calculate">CALCULATE</string>
+</resources>
