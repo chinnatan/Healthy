@@ -22,6 +22,11 @@ public class RegisterFragment extends Fragment {
 
     public void onActivityCreated(@NonNull Bundle saveInstanceState) {
         super.onActivityCreated(saveInstanceState);
+
+        initRegisterBtn();
+    }
+
+    void initRegisterBtn() {
         Button _registerBtn = getView().findViewById(R.id.register_register_btn);
         _registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override

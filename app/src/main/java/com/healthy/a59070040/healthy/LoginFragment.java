@@ -24,6 +24,12 @@ public class LoginFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle saveInstanceState) {
         super.onActivityCreated(saveInstanceState);
+
+        initLoginBtn();
+        initRegisterTextView();
+    }
+
+    void initLoginBtn() {
         Button _loginBtn = getView().findViewById(R.id.login_login_btn);
         _loginBtn.setOnClickListener(new View.OnClickListener() {
             public  void onClick(View view) {
@@ -44,7 +50,9 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+    }
 
+    void initRegisterTextView() {
         TextView _registerBtn = getView().findViewById(R.id.login_register_new_account_text);
         _registerBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
