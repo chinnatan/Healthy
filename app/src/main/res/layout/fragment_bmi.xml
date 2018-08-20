@@ -13,25 +13,43 @@
             android:padding="35dp">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/bmi_height"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/bmi_height"
-                android:inputType="text"
+                android:inputType="number"
                 android:drawableLeft="@drawable/ico_height"
                 />
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/bmi_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/bmi_width"
+                android:inputType="number"
                 android:drawableLeft="@drawable/ico_weight"/>
             <Button
+                android:id="@+id/bmi_calculate_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/background_light"
                 android:text="@string/bmi_button_calculate"/>
+            <TextView
+                android:id="@+id/bmi_show"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="100dp"
+                android:textSize="40dp"
+                android:textAlignment="center"
+                android:text=""/>
+            <TextView
+                android:id="@+id/bmi_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="35dp"
+                android:textSize="40dp"
+                android:textAlignment="center"
+                android:text=""/>
         </LinearLayout>
     </ScrollView>
 
