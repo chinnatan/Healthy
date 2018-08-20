@@ -36,7 +36,6 @@ public class BMIFragment extends Fragment {
         _calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView _bmiShow = getView().findViewById(R.id.bmi_show);
                 TextView _bmiResult = getView().findViewById(R.id.bmi_result);
                 EditText _height = getView().findViewById(R.id.bmi_height);
                 EditText _weight = getView().findViewById(R.id.bmi_weight);
@@ -52,8 +51,7 @@ public class BMIFragment extends Fragment {
                     _convertHeight = Float.parseFloat(_heightStr) / 100;
                     _convertWeight = Float.parseFloat(_weightStr);
                     _resultBMI = _convertWeight / (_convertHeight*_convertHeight);
-                    _bmiShow.setText("Your BMI");
-                    _bmiResult.setText(String.format("%.2f", _resultBMI));
+                    _bmiResult.setText(String.format("Your BMI\n\n%.2f", _resultBMI));
                     Log.d("BMI_USER", "BMI IS VALUE");
                 }
             }

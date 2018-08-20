@@ -35,18 +35,10 @@
                 android:textColor="@android:color/background_light"
                 android:text="@string/bmi_button_calculate"/>
             <TextView
-                android:id="@+id/bmi_show"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="100dp"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:text=""/>
-            <TextView
                 android:id="@+id/bmi_result"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="70dp"
                 android:textSize="40dp"
                 android:textAlignment="center"
                 android:text=""/>
