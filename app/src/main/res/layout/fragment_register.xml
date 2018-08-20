@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/register_user_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -28,7 +28,7 @@
                 tools:layout_editor_absoluteY="99dp" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/register_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
@@ -40,7 +40,7 @@
                 tools:layout_editor_absoluteY="159dp" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/register_age"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
@@ -52,7 +52,7 @@
                 tools:layout_editor_absoluteY="220dp" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/register_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
@@ -64,7 +64,7 @@
                 tools:layout_editor_absoluteY="281dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/register_register_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
