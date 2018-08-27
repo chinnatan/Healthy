@@ -52,7 +52,7 @@ public class BMIFragment extends Fragment {
                     _convertWeight = Float.parseFloat(_weightStr);
                     _resultBMI = _convertWeight / (_convertHeight*_convertHeight);
                     _bmiResult.setText(String.format("Your BMI\n\n%.2f", _resultBMI));
-                    Log.d("BMI_USER", "BMI IS VALUE");
+                    Log.d("BMI_USER", "BMI IS VALUE" + _resultBMI);
                 }
             }
         });
