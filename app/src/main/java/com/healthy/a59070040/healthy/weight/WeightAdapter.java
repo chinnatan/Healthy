@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.healthy.a59070040.healthy.R;
 
@@ -27,7 +28,15 @@ public class WeightAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater.from(context).inflate(R.layout.fragment_weight_item, parent, false);
-        return super.getView(position, convertView, parent);
+        View _weightItem = LayoutInflater.from(context).inflate(R.layout.fragment_weight_item, parent, false);
+
+        TextView _date = _weightItem.findViewById(R.id.weight_item_date);
+        TextView _weight = _weightItem.findViewById(R.id.weight_item_weight);
+
+        Weight _row = weights.get(position);
+        _date.setText(_row.getDate());
+        _weight.setText(_row.getWeight());
+
+        return _weightItem;
     }
 }

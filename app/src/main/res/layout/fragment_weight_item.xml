@@ -6,12 +6,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <TextView
-        android:id="@+id/menu_item_date"
+        android:id="@+id/weight_item_date"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/menu_item_weight"
+        android:id="@+id/weight_item_weight"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

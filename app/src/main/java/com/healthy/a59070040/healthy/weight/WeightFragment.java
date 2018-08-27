@@ -9,16 +9,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.healthy.a59070040.healthy.R;
 
+import java.util.ArrayList;
+
 public class WeightFragment extends Fragment {
+
+    ArrayList<Weight> weights = new ArrayList<>();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initAddWeightBtn();
+        weights.add(new Weight("01 Jan 2018", 63, "UP"));
+        weights.add(new Weight("02 Jan 2018", 62, "DOWN"));
+        weights.add(new Weight("03 Jan 2018", 63, "UP"));
+
+        ListView _weightList = getView().findViewById(R.id.weight_list);
+        WeightAdapter _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
+        _weightList.setAdapter(_weightAdapter);
+
+//        initAddWeightBtn();
     }
 
     @Nullable
