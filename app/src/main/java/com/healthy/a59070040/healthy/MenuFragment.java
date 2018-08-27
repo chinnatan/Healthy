@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.healthy.a59070040.healthy.weight.WeightFragment;
+
 import java.util.ArrayList;
 
 public class MenuFragment extends Fragment {
