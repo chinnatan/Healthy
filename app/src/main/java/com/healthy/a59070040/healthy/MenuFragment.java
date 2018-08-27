@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.healthy.a59070040.healthy.weight.WeightFragment;
+
 import java.util.ArrayList;
 
 public class MenuFragment extends Fragment {
@@ -40,7 +42,7 @@ public class MenuFragment extends Fragment {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new BMIFragment()).addToBackStack(null).commit();
                     Log.d("MENU", "Selected on BMI Menu");
                 } else if(_menu.get(i).equals("Weight")){
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new BMIFragment()).addToBackStack(null).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).addToBackStack(null).commit();
                     Log.d("MENU", "Selected on Weight Menu");
                 }
                 _menuAdapter.notifyDataSetChanged();
