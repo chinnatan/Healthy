@@ -22,6 +22,7 @@ public class MenuFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        _menu.clear();
         _menu.add("BMI");
         _menu.add("Weight");
         _menu.add("Setup");
@@ -34,8 +35,14 @@ public class MenuFragment extends Fragment {
         _menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("MENU", "Select " + _menu.get(i));
-                _menu.add("new Value");
+                Log.d("MENU", "Select on " + _menu.get(i));
+                if(_menu.get(i).equals("BMI")) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new BMIFragment()).addToBackStack(null).commit();
+                    Log.d("MENU", "Selected on BMI Menu");
+                } else if(_menu.get(i).equals("Weight")){
+                    _menu.add("new Value");
+                    Log.d("MENU", "Selected on Weight Menu");
+                }
                 _menuAdapter.notifyDataSetChanged();
             }
         });
