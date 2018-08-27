@@ -16,25 +16,27 @@ import java.util.ArrayList;
 
 public class MenuFragment extends Fragment {
 
-    ArrayList<String> menu = new ArrayList<>();
+    ArrayList<String> _menu = new ArrayList<>();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        menu.add("BMI");
+        _menu.add("BMI");
+        _menu.add("Weight");
+        _menu.add("Setup");
 
-        ListView menuList = getView().findViewById(R.id.menu_list);
-        final ArrayAdapter<String> menuAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, menu);
+        ListView _menuList = getView().findViewById(R.id.menu_list);
+        final ArrayAdapter<String> _menuAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, _menu);
 
-        menuList.setAdapter(menuAdapter);
+        _menuList.setAdapter(_menuAdapter);
 
-        menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        _menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("MENU", "Select " + menu.get(i));
-                menu.add("new Value");
-                menuAdapter.notifyDataSetChanged();
+                Log.d("MENU", "Select " + _menu.get(i));
+                _menu.add("new Value");
+                _menuAdapter.notifyDataSetChanged();
             }
         });
     }
