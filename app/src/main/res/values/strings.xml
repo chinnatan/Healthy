@@ -10,4 +10,8 @@
     <string name="bmi_height">Height (cm)</string>
     <string name="bmi_width">Weight (cm)</string>
     <string name="bmi_button_calculate">CALCULATE</string>
+    <string name="weight_back_btn">ย้อนกลับ</string>
+    <string name="weight_weighing_date">วันที่ชั่ง</string>
+    <string name="weight_weight">น้ำหนัก (kg)</string>
+    <string name="weight_save_btn">บันทึก</string>
 </resources>
