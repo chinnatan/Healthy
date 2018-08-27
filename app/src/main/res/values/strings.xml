@@ -13,8 +13,8 @@
     <string name="bmi_button_calculate">CALCULATE</string>
     <string name="bmi_back_btn">Back</string>
 
-    <string name="weight_back_btn">ย้อนกลับ</string>
-    <string name="weight_weighing_date">วันที่ชั่ง</string>
-    <string name="weight_weight">น้ำหนัก (kg)</string>
-    <string name="weight_save_btn">บันทึก</string>
+    <string name="weight_form_back_btn">ย้อนกลับ</string>
+    <string name="weight_form_weighing_date">วันที่ชั่ง</string>
+    <string name="weight_form_weight">น้ำหนัก (kg)</string>
+    <string name="weight_form_save_btn">บันทึก</string>
 </resources>
