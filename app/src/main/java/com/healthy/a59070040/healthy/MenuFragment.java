@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.healthy.a59070040.healthy.menu.Menu;
 import com.healthy.a59070040.healthy.weight.WeightFragment;
 
 import java.util.ArrayList;
@@ -23,6 +24,11 @@ public class MenuFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Menu _menus = new Menu();
+        _menus.addItem("BMI");
+        _menus.addItem("Weight");
+        _menus.addItem("Setup");
 
         _menu.clear();
         _menu.add("BMI");
