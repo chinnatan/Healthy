@@ -56,7 +56,7 @@ public class LoginFragment extends Fragment {
         TextView _registerBtn = getView().findViewById(R.id.login_register_new_account_text);
         _registerBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new RegisterFragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new RegisterFragment()).addToBackStack(null).commit();
                 Log.d("USER", "GOTO REGISTER");
             }
         });

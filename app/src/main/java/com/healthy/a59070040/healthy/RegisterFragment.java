@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
 
     @NonNull
     @Override
@@ -28,10 +31,12 @@ public class RegisterFragment extends Fragment {
     public void onActivityCreated(@NonNull Bundle saveInstanceState) {
         super.onActivityCreated(saveInstanceState);
 
+        mAuth = FirebaseAuth.getInstance();
+
         initRegisterBtn();
     }
 
-    void checkField() {
+    void registerNewUser() {
         EditText _email = getView().findViewById(R.id.register_email);
         EditText _password = getView().findViewById(R.id.register_password);
         EditText _rePassword = getView().findViewById(R.id.register_re_password);
@@ -52,7 +57,33 @@ public class RegisterFragment extends Fragment {
         } else if (!(_passwordStr.length() >= 6)) {
             Toast.makeText(getActivity(), "Password ต้องมีอย่างน้อย 6 ตัวอักษร", Toast.LENGTH_LONG).show();
             Log.d("REGISTER_USER", "PASSWORD NEED LENGTH AT LEAST 6 LONG");
+        } else {
+            mAuth.createUserWithEmailAndPassword(_emailStr, _passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    sendVerifiedEmail(authResult.getUser());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), "ERROR - " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+    }
+
+    private void sendVerifiedEmail(FirebaseUser _user) {
+        _user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 
     void initRegisterBtn() {
@@ -60,39 +91,7 @@ public class RegisterFragment extends Fragment {
         _registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkField();
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                mAuth.createUserWithEmailAndPassword("email", "password").addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-
-//                EditText _userId = getView().findViewById(R.id.register_user_id);
-//                EditText _name = getView().findViewById(R.id.register_name);
-//                EditText _age = getView().findViewById(R.id.register_age);
-//                EditText _password = getView().findViewById(R.id.register_password);
-//                String _userIdStr = _userId.getText().toString();
-//                String _nameStr = _name.getText().toString();
-//                String _ageStr = _age.getText().toString();
-//                String _passwordStr = _password.getText().toString();
-//
-//                if(_userIdStr.isEmpty() || _nameStr.isEmpty() || _ageStr.isEmpty() || _passwordStr.isEmpty()) {
-//                    Toast.makeText(getActivity(), "กรุณาระบุข้อมูลให้ครบถ้วน", Toast.LENGTH_LONG).show();
-//                    Log.d("REGISTER_USER", "FIELD NAME IS EMPTY");
-//                } else if(_userIdStr.equals("admin")) {
-//                    Toast.makeText(getActivity(), "user นี้มีอยู่ในระบบแล้ว", Toast.LENGTH_LONG).show();
-//                    Log.d("REGISTER_USER", "USER ALREADY EXIST");
-//                } else {
-//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new BMIFragment()).commit();
-//                    Log.d("REGISTER_USER", "GOTO BMI");
-//                }
+                registerNewUser();
             }
         });
     }
