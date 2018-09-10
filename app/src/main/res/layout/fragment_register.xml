@@ -17,39 +17,15 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/register_user_id"
+                android:id="@+id/register_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:ems="10"
-                android:hint="@string/username"
-                android:inputType="textPersonName"
                 android:drawableLeft="@drawable/ico_person"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 tools:layout_editor_absoluteX="85dp"
                 tools:layout_editor_absoluteY="99dp" />
-
-            <EditText
-                android:id="@+id/register_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:hint="@string/name"
-                android:inputType="textPersonName"
-                android:drawableLeft="@drawable/ico_name"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="159dp" />
-
-            <EditText
-                android:id="@+id/register_age"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:hint="@string/age"
-                android:inputType="textPersonName"
-                android:drawableLeft="@drawable/ico_age"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="220dp" />
 
             <EditText
                 android:id="@+id/register_password"
@@ -62,6 +38,19 @@
                 android:inputType="textPassword"
                 tools:layout_editor_absoluteX="85dp"
                 tools:layout_editor_absoluteY="281dp" />
+
+            <EditText
+                android:id="@+id/register_re_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/ico_lock"
+                android:ems="10"
+                android:hint="@string/re_password"
+                android:inputType="textPassword"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="281dp" />
+
 
             <Button
                 android:id="@+id/register_register_btn"
