@@ -17,7 +17,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
-                android:text="@string/bmi_back_btn"/>
+                android:text="@string/bmi_back_btn"
+                android:background="@drawable/button"
+                android:textColor="@color/colorWhiteTextBtn"/>
 
             <EditText
                 android:id="@+id/bmi_height"
@@ -39,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
-                android:textColor="@android:color/background_light"
+                android:background="@drawable/button"
+                android:textColor="@color/colorWhiteTextBtn"
                 android:text="@string/bmi_button_calculate"/>
             <TextView
                 android:id="@+id/bmi_result"

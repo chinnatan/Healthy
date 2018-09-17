@@ -57,9 +57,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/button"
                 android:text="@string/register"
-                android:textColor="@android:color/background_light"
+                android:textColor="@color/colorWhiteTextBtn"
                 tools:layout_editor_absoluteX="85dp"
                 tools:layout_editor_absoluteY="342dp" />
 

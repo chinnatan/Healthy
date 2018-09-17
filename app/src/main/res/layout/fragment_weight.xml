@@ -18,9 +18,9 @@
             android:id="@+id/weight_add_weight_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button"
             android:text="@string/weight_add_weight_btn"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@color/colorWhiteTextBtn" />
 
     </LinearLayout>
 
