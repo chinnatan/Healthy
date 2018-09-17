@@ -10,25 +10,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.healthy.a59070040.healthy.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WeightFragment extends Fragment {
 
     ArrayList<Weight> weights = new ArrayList<>();
+    FirebaseAuth _mAuth;
+    FirebaseFirestore _mStore;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        weights.add(new Weight("01 Jan 2018", 63, "UP"));
-        weights.add(new Weight("02 Jan 2018", 62, "DOWN"));
-        weights.add(new Weight("03 Jan 2018", 63, "UP"));
-        ListView _weightList = getView().findViewById(R.id.weight_list);
-        WeightAdapter _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
-        _weightList.setAdapter(_weightAdapter);
+        _mAuth = FirebaseAuth.getInstance();
+        _mStore = FirebaseFirestore.getInstance();
+
+        loadData();
 
         initAddWeightBtn();
     }
@@ -47,6 +55,33 @@ public class WeightFragment extends Fragment {
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFormFragment()).addToBackStack(null).commit();
                 Log.d("WEIGHT_FORM", "Click Add Weight Button");
+            }
+        });
+    }
+
+    void loadData() {
+        _mStore.collection("myfitness").document(_mAuth.getCurrentUser().getUid()).collection("weight").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(!queryDocumentSnapshots.isEmpty()) {
+
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+
+                    for(DocumentSnapshot _doc : list) {
+                        Weight _weightData = _doc.toObject(Weight.class);
+                        weights.add(_weightData);
+                    }
+
+                    ListView _weightList = getView().findViewById(R.id.weight_list);
+                    WeightAdapter _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
+                    _weightAdapter.notifyDataSetChanged();
+                    _weightList.setAdapter(_weightAdapter);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), "ERROR - " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
