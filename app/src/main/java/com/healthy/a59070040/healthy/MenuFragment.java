@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.healthy.a59070040.healthy.menu.Menu;
 import com.healthy.a59070040.healthy.weight.WeightFragment;
 
@@ -19,9 +20,13 @@ import java.util.ArrayList;
 
 public class MenuFragment extends Fragment {
 
+    FirebaseAuth _mAuth;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        _mAuth = FirebaseAuth.getInstance();
 
         initMenuList();
     }
@@ -54,6 +59,9 @@ public class MenuFragment extends Fragment {
                 } else if(_menus.getMenu().get(i).equals("Weight")){
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).addToBackStack(null).commit();
                     Log.d("MENU", "Selected on Weight Menu");
+                } else if(_menus.getMenu().get(i).equals("Logout")) {
+                    _mAuth.signOut();
+                    Log.d("MENU", "Logout Completed");
                 }
                 _menuAdapter.notifyDataSetChanged();
             }
