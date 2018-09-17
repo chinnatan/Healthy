@@ -16,12 +16,12 @@ import java.util.List;
 
 public class WeightAdapter extends ArrayAdapter<Weight> {
 
-    List<Weight> weights = new ArrayList<Weight>();
+    List<Weight> weight = new ArrayList<Weight>();
     Context context;
 
     public WeightAdapter(Context context, int resource, List<Weight> objects) {
         super(context, resource, objects);
-        this.weights = objects;
+        this.weight = objects;
         this.context = context;
     }
 
@@ -33,7 +33,7 @@ public class WeightAdapter extends ArrayAdapter<Weight> {
         TextView _date = _weightItem.findViewById(R.id.weight_item_date);
         TextView _weight = _weightItem.findViewById(R.id.weight_item_weight);
 
-        Weight _row = weights.get(position);
+        Weight _row = weight.get(position);
         _date.setText(_row.getDate());
         _weight.setText(String.valueOf(_row.getWeight()));
 

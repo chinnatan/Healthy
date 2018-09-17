@@ -22,6 +22,7 @@ public class WeightFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         weights.add(new Weight("01 Jan 2018", 63, "UP"));
         weights.add(new Weight("02 Jan 2018", 62, "DOWN"));
         weights.add(new Weight("03 Jan 2018", 63, "UP"));
