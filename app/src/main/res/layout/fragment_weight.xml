@@ -38,6 +38,12 @@
             android:paddingLeft="35dp"
             android:paddingRight="35dp">
 
+            <ProgressBar
+                android:id="@+id/weight_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+
             <ListView
                 android:id="@+id/weight_list"
                 android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +27,7 @@ import java.util.List;
 public class WeightFragment extends Fragment {
 
     ArrayList<Weight> weights = new ArrayList<>();
+    ProgressBar _loading;
     FirebaseAuth _mAuth;
     FirebaseFirestore _mStore;
 
@@ -35,6 +37,7 @@ public class WeightFragment extends Fragment {
 
         _mAuth = FirebaseAuth.getInstance();
         _mStore = FirebaseFirestore.getInstance();
+        _loading = getView().findViewById(R.id.weight_loading);
 
         loadData();
 
@@ -63,6 +66,9 @@ public class WeightFragment extends Fragment {
         _mStore.collection("myfitness").document(_mAuth.getCurrentUser().getUid()).collection("weight").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                _loading.setVisibility(View.GONE);
+
                 if(!queryDocumentSnapshots.isEmpty()) {
 
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
