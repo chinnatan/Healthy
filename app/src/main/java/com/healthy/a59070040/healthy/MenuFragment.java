@@ -61,6 +61,7 @@ public class MenuFragment extends Fragment {
                     Log.d("MENU", "Selected on Weight Menu");
                 } else if(_menus.getMenu().get(i).equals("Logout")) {
                     _mAuth.signOut();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
                     Log.d("MENU", "Logout Completed");
                 }
                 _menuAdapter.notifyDataSetChanged();
