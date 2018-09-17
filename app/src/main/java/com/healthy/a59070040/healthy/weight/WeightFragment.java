@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.healthy.a59070040.healthy.R;
@@ -28,7 +29,7 @@ public class WeightFragment extends Fragment {
         WeightAdapter _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
         _weightList.setAdapter(_weightAdapter);
 
-//        initAddWeightBtn();
+        initAddWeightBtn();
     }
 
     @Nullable
@@ -37,15 +38,15 @@ public class WeightFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_weight, container, false);
     }
 
-//    void initAddWeightBtn(){
-//        Button _addweightBtn = getView().findViewById(R.id.weight_add_weight_btn);
-//
-//        _addweightBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFormFragment()).addToBackStack(null).commit();
-//                Log.d("WEIGHT_FORM", "Click Add Weight Button");
-//            }
-//        });
-//    }
+    void initAddWeightBtn(){
+        Button _addweightBtn = getView().findViewById(R.id.weight_add_weight_btn);
+
+        _addweightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFormFragment()).addToBackStack(null).commit();
+                Log.d("WEIGHT_FORM", "Click Add Weight Button");
+            }
+        });
+    }
 }

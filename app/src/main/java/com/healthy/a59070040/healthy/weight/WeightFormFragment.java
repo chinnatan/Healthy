@@ -27,6 +27,9 @@ public class WeightFormFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         _mStore = FirebaseFirestore.getInstance();
         _mAuth = FirebaseAuth.getInstance();
+
+        initSaveButton();
+        initBackButton();
     }
 
     @Nullable
@@ -47,21 +50,35 @@ public class WeightFormFragment extends Fragment {
                 String _weightStr = _weight.getText().toString();
                 String _uidStr = _mAuth.getCurrentUser().getUid();
 
-                Weight _dataWeight = new Weight(_dateStr, Integer.valueOf(_weightStr), "UP");
+                if(_dateStr.isEmpty() || _weightStr.isEmpty()) {
+                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_LONG).show();
+                } else {
+                    Weight _dataWeight = new Weight(_dateStr, Integer.valueOf(_weightStr), "-");
 
-                _mStore.collection("myfitness").document(_uidStr)
-                        .collection("weight").document(_dateStr)
-                        .set(_dataWeight).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+                    _mStore.collection("myfitness").document(_uidStr)
+                            .collection("weight").document(_dateStr)
+                            .set(_dataWeight).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).commit();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "ERROR - " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "ERROR - " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+    void initBackButton() {
+        Button _btn = getView().findViewById(R.id.weight_form_back_btn);
+        _btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).commit();
             }
         });
     }
