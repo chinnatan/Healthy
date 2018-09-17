@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,7 +21,6 @@ public class WeightFormFragment extends Fragment {
 
     FirebaseFirestore _mStore;
     FirebaseAuth _mAuth;
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class WeightFormFragment extends Fragment {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        Toast.makeText(getActivity(), "ERROR - " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
