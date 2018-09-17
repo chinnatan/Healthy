@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.healthy.a59070040.healthy.MenuFragment;
 import com.healthy.a59070040.healthy.R;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class WeightFragment extends Fragment {
 
-    ArrayList<Weight> weights = new ArrayList<>();
+    ArrayList<Weight> weights;
     ProgressBar _loading;
     FirebaseAuth _mAuth;
     FirebaseFirestore _mStore;
@@ -39,6 +40,7 @@ public class WeightFragment extends Fragment {
         _mStore = FirebaseFirestore.getInstance();
         _loading = getView().findViewById(R.id.weight_loading);
 
+        weights = new ArrayList<>();
         loadData();
 
         initAddWeightBtn();
