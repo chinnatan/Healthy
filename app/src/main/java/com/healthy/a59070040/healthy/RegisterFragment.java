@@ -62,6 +62,7 @@ public class RegisterFragment extends Fragment {
                 @Override
                 public void onSuccess(AuthResult authResult) {
                     sendVerifiedEmail(authResult.getUser());
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
