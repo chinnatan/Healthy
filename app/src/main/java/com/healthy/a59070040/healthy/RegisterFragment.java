@@ -76,12 +76,12 @@ public class RegisterFragment extends Fragment {
         _user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
+                Toast.makeText(getActivity(), "กรุณาตรวจสอบ email ที่ทำการสมัครใช้งาน", Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                Toast.makeText(getActivity(), "ERROR - " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

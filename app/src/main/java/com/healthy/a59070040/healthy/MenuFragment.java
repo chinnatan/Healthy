@@ -37,6 +37,7 @@ public class MenuFragment extends Fragment {
         _menus.addItem("BMI");
         _menus.addItem("Weight");
         _menus.addItem("Setup");
+        _menus.addItem("Logout");
 
         ListView _menuList = getView().findViewById(R.id.menu_list);
         final ArrayAdapter<String> _menuAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, _menus.getMenu());
