@@ -62,7 +62,7 @@ public class LoginFragment extends Fragment {
                                 Log.d("LOGIN", "LOGIN SUCCESS AND GO TO MENU");
                             } else {
                                 Toast.makeText(getActivity(), "กรุณายืนยัน email", Toast.LENGTH_LONG).show();
-                                Log.d("LOGIN", "LOGIN UNSUCCESS BECAUSE UNCONFIRM EMAIL");
+                                Log.d("LOGIN", "Login unsucess and unconfirm email");
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
