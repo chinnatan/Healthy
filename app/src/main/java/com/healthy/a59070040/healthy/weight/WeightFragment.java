@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -35,6 +36,7 @@ public class WeightFragment extends Fragment {
     FirebaseFirestore _mStore;
     ListView _weightList;
     WeightAdapter _weightAdapter;
+    String _uid;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class WeightFragment extends Fragment {
 
         _weightList = getView().findViewById(R.id.weight_list);
         _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
-        String _uid = _mAuth.getCurrentUser().getUid();
+        _uid = _mAuth.getCurrentUser().getUid();
 
         loadWeight(_uid);
 
@@ -85,6 +87,7 @@ public class WeightFragment extends Fragment {
                     ArrayList<Weight> _tempWeight_1 = new ArrayList<>();
                     ArrayList<Weight> _tempWeight_2 = new ArrayList<>();
 
+                    // Get data from firestore
                     for(DocumentSnapshot _doc : listWeightData) {
                         Weight _weightData = _doc.toObject(Weight.class);
                         Log.d("FIRESTORE", "Form Firestore : " + _weightData.getDate() + " : " + _weightData.getWeight());
@@ -102,14 +105,17 @@ public class WeightFragment extends Fragment {
                                 _tempWeight_1.get(i).setStatus("ขึ้น");
                                 Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
                                 weights.add(_tempWeight_1.get(i));
+                                updateStatusWeight(_tempWeight_1.get(i));
                             } else if(_tempWeight_1.get(i).getWeight() < _tempWeight_2.get(j).getWeight()){
                                 _tempWeight_1.get(i).setStatus("ลง");
                                 Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
                                 weights.add(_tempWeight_1.get(i));
+                                updateStatusWeight(_tempWeight_1.get(i));
                             } else {
                                 _tempWeight_1.get(i).setStatus("คงที่");
                                 Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
                                 weights.add(_tempWeight_1.get(i));
+                                updateStatusWeight(_tempWeight_1.get(i));
                             }
                             i++;
                         }
@@ -126,5 +132,10 @@ public class WeightFragment extends Fragment {
                 Toast.makeText(getActivity(), "ERROR - " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    void updateStatusWeight(Weight weight) {
+        _mStore.collection("myfitness").document(_uid).collection("weight").document(weight.getDate())
+                .update("status", weight.getStatus());
     }
 }
