@@ -62,7 +62,13 @@ public class RegisterFragment extends Fragment {
                 @Override
                 public void onSuccess(AuthResult authResult) {
                     sendVerifiedEmail(authResult.getUser());
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
+                    if(authResult.getUser().isEmailVerified()) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
+                    } else {
+                        Toast.makeText(getActivity(), "กรุณายืนยัน email ก่อนเข้าใช้งาน", Toast.LENGTH_LONG);
+                        mAuth.signOut();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

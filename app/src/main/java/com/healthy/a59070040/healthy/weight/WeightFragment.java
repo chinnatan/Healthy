@@ -67,7 +67,7 @@ public class WeightFragment extends Fragment {
         _addweightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFormFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFormFragment()).commit();
                 Log.d("WEIGHT_FORM", "Click Add Weight Button");
             }
         });
@@ -97,29 +97,33 @@ public class WeightFragment extends Fragment {
                     }
 
                     // Compare Weight and set Status
-                    for(int i = 0;i < _tempWeight_1.size();i++) {
-                        Log.d("TEMP", "I : " + i + " tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
-                        for(int j = 1;j < _tempWeight_2.size();j++) {
-                            Log.d("TEMP", "J : " + j + " tempWeight 2 : " + _tempWeight_2.get(i).getWeight() + " : " + _tempWeight_2.get(i).getStatus());
-                            if(_tempWeight_1.get(i).getWeight() > _tempWeight_2.get(j).getWeight()) {
-                                _tempWeight_1.get(i).setStatus("ขึ้น");
-                                Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
-                                weights.add(_tempWeight_1.get(i));
-                                updateStatusWeight(_tempWeight_1.get(i));
-                            } else if(_tempWeight_1.get(i).getWeight() < _tempWeight_2.get(j).getWeight()){
-                                _tempWeight_1.get(i).setStatus("ลง");
-                                Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
-                                weights.add(_tempWeight_1.get(i));
-                                updateStatusWeight(_tempWeight_1.get(i));
-                            } else {
-                                _tempWeight_1.get(i).setStatus("คงที่");
-                                Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
-                                weights.add(_tempWeight_1.get(i));
-                                updateStatusWeight(_tempWeight_1.get(i));
+                    if(_tempWeight_1.size() == 1) {
+                        weights.add(_tempWeight_1.get(0));
+                    } else {
+                        for (int i = 0; i < _tempWeight_1.size(); i++) {
+                            Log.d("TEMP", "I : " + i + " tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                            for (int j = 1; j < _tempWeight_2.size(); j++) {
+                                Log.d("TEMP", "J : " + j + " tempWeight 2 : " + _tempWeight_2.get(i).getWeight() + " : " + _tempWeight_2.get(i).getStatus());
+                                if (_tempWeight_1.get(i).getWeight() > _tempWeight_2.get(j).getWeight()) {
+                                    _tempWeight_1.get(i).setStatus("ขึ้น");
+                                    Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                                    weights.add(_tempWeight_1.get(i));
+                                    updateStatusWeight(_tempWeight_1.get(i));
+                                } else if (_tempWeight_1.get(i).getWeight() < _tempWeight_2.get(j).getWeight()) {
+                                    _tempWeight_1.get(i).setStatus("ลง");
+                                    Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                                    weights.add(_tempWeight_1.get(i));
+                                    updateStatusWeight(_tempWeight_1.get(i));
+                                } else {
+                                    _tempWeight_1.get(i).setStatus("คงที่");
+                                    Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                                    weights.add(_tempWeight_1.get(i));
+                                    updateStatusWeight(_tempWeight_1.get(i));
+                                }
+                                i++;
                             }
-                            i++;
+                            weights.add(_tempWeight_1.get(i));
                         }
-                        weights.add(_tempWeight_1.get(i));
                     }
 
                     _weightAdapter.notifyDataSetChanged();

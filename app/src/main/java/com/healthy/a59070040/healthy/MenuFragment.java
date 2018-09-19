@@ -54,10 +54,10 @@ public class MenuFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("MENU", "Select on " + _menus.getMenu().get(i));
                 if(_menus.getMenu().get(i).equals("BMI")) {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new BMIFragment()).addToBackStack(null).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new BMIFragment()).addToBackStack("to_bmi").commit();
                     Log.d("MENU", "Selected on BMI Menu");
                 } else if(_menus.getMenu().get(i).equals("Weight")){
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).addToBackStack(null).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).addToBackStack("to_weight").commit();
                     Log.d("MENU", "Selected on Weight Menu");
                 } else if(_menus.getMenu().get(i).equals("Sign out")) {
                     _mAuth.signOut();
