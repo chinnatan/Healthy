@@ -16,8 +16,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.healthy.a59070040.healthy.MenuFragment;
 import com.healthy.a59070040.healthy.R;
@@ -27,10 +29,12 @@ import java.util.List;
 
 public class WeightFragment extends Fragment {
 
-    ArrayList<Weight> weights;
+    ArrayList<Weight> weights = new ArrayList<>();
     ProgressBar _loading;
     FirebaseAuth _mAuth;
     FirebaseFirestore _mStore;
+    ListView _weightList;
+    WeightAdapter _weightAdapter;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -40,8 +44,11 @@ public class WeightFragment extends Fragment {
         _mStore = FirebaseFirestore.getInstance();
         _loading = getView().findViewById(R.id.weight_loading);
 
-        weights = new ArrayList<>();
-        loadData();
+        _weightList = getView().findViewById(R.id.weight_list);
+        _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
+        String _uid = _mAuth.getCurrentUser().getUid();
+
+        loadWeight(_uid);
 
         initAddWeightBtn();
     }
@@ -64,24 +71,52 @@ public class WeightFragment extends Fragment {
         });
     }
 
-    void loadData() {
-        _mStore.collection("myfitness").document(_mAuth.getCurrentUser().getUid()).collection("weight").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    void loadWeight(String uid) {
+        _mStore.collection("myfitness").document(uid).collection("weight").orderBy("date", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
+                _weightAdapter.clear();
                 _loading.setVisibility(View.GONE);
 
                 if(!queryDocumentSnapshots.isEmpty()) {
 
-                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    List<DocumentSnapshot> listWeightData = queryDocumentSnapshots.getDocuments();
+                    ArrayList<Weight> _tempWeight_1 = new ArrayList<>();
+                    ArrayList<Weight> _tempWeight_2 = new ArrayList<>();
 
-                    for(DocumentSnapshot _doc : list) {
+                    for(DocumentSnapshot _doc : listWeightData) {
                         Weight _weightData = _doc.toObject(Weight.class);
-                        weights.add(_weightData);
+                        Log.d("FIRESTORE", "Form Firestore : " + _weightData.getDate() + " : " + _weightData.getWeight());
+                        _tempWeight_1.add(_weightData);
+                        _tempWeight_2.add(_weightData);
+                        Log.d("TEMP", "Add to tempWeight");
+//                        weights.add(_weightData);
                     }
 
-                    ListView _weightList = getView().findViewById(R.id.weight_list);
-                    WeightAdapter _weightAdapter = new WeightAdapter(getActivity(), R.layout.fragment_weight_item, weights);
+                    // Compare Weight and set Status
+                    for(int i = 0;i < _tempWeight_1.size();i++) {
+                        Log.d("TEMP", "I : " + i + " tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                        for(int j = 1;j < _tempWeight_2.size();j++) {
+                            Log.d("TEMP", "J : " + j + " tempWeight 2 : " + _tempWeight_2.get(i).getWeight() + " : " + _tempWeight_2.get(i).getStatus());
+                            if(_tempWeight_1.get(i).getWeight() > _tempWeight_2.get(j).getWeight()) {
+                                _tempWeight_1.get(i).setStatus("ขึ้น");
+                                Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                                weights.add(_tempWeight_1.get(i));
+                            } else if(_tempWeight_1.get(i).getWeight() < _tempWeight_2.get(j).getWeight()){
+                                _tempWeight_1.get(i).setStatus("ลง");
+                                Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                                weights.add(_tempWeight_1.get(i));
+                            } else {
+                                _tempWeight_1.get(i).setStatus("คงที่");
+                                Log.d("TEMP", "tempWeight : " + _tempWeight_1.get(i).getWeight() + " : " + _tempWeight_1.get(i).getStatus());
+                                weights.add(_tempWeight_1.get(i));
+                            }
+                            i++;
+                        }
+                        weights.add(_tempWeight_1.get(i));
+                    }
+
                     _weightAdapter.notifyDataSetChanged();
                     _weightList.setAdapter(_weightAdapter);
                 }
