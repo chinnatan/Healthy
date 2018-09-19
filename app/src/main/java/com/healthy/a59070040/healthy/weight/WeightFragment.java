@@ -91,7 +91,6 @@ public class WeightFragment extends Fragment {
                         _tempWeight_1.add(_weightData);
                         _tempWeight_2.add(_weightData);
                         Log.d("TEMP", "Add to tempWeight");
-//                        weights.add(_weightData);
                     }
 
                     // Compare Weight and set Status
