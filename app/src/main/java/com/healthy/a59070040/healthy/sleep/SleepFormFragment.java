@@ -20,6 +20,7 @@ import com.healthy.a59070040.healthy.R;
 public class SleepFormFragment extends Fragment {
 
     private SQLiteDatabase db;
+    private Sleep sleep;
 
     @Nullable
     @Override
@@ -32,9 +33,13 @@ public class SleepFormFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         db = getActivity().openOrCreateDatabase("my.db", Context.MODE_PRIVATE, null);
+        sleep = Sleep.getSleepInstance();
 
         initSaveBtn();
         initBackBtn();
+        if(sleep != null) {
+            loadData();
+        }
     }
 
     private void initSaveBtn() {
@@ -76,8 +81,10 @@ public class SleepFormFragment extends Fragment {
         } else {
             ContentValues contentValues = new ContentValues();
             contentValues.put("currentdate", _dateStr);
-            contentValues.put("timetosleep", _timetosleepHourStr + ":" + _timetosleepMinStr);
-            contentValues.put("timetowakeup", _timetowakeupHourStr + ":" + _timetowakeupMinStr);
+            contentValues.put("timetosleephour", _timetosleepHourStr);
+            contentValues.put("timetosleepmin", _timetosleepMinStr);
+            contentValues.put("timetowakeuphour", _timetowakeupHourStr);
+            contentValues.put("timetowakeupmin", _timetowakeupMinStr);
 
             int timetosleepHourInt = Integer.parseInt(_timetosleepHourStr);
             int timetosleepMinInt = Integer.parseInt(_timetosleepMinStr);
@@ -88,15 +95,39 @@ public class SleepFormFragment extends Fragment {
             int calculateMin = Math.abs(00 - timetosleepMinInt);
 
             int resultHour = calculateHour + timetowakeupHourInt;
-            int resultMin = calculateMin +timetowakeupMinInt;
+            int resultMin = calculateMin + timetowakeupMinInt;
 
-            contentValues.put("counttime", resultHour + ":" + resultMin);
+            String resultMinStr;
+            if(resultMin == 0) {
+                resultMinStr = "00";
+                contentValues.put("counttime", resultHour + ":" + resultMinStr);
+            } else {
+                contentValues.put("counttime", resultHour + ":" + resultMin);
+            }
 
-            db.insert("sleep", null, contentValues);
+            if(sleep.getPrimaryId() == 0) {
+                db.insert("sleep", null, contentValues);
+            } else {
+                db.update("sleep", contentValues, "_id=" + sleep.getPrimaryId(), null);
+            }
 
             Toast.makeText(getActivity(), "เพิ่มข้อมูลเรียบร้อย", Toast.LENGTH_LONG).show();
             Log.d("ADDTODATABASE_SLEEPFORMFRAGMENT", "add to database");
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new SleepFragment()).commit();
         }
+    }
+
+    private void loadData() {
+        EditText _dateTxt = getView().findViewById(R.id.frg_sleep_form_date);
+        EditText _timetosleepHourTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep_hour);
+        EditText _timetosleepMinTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep_min);
+        EditText _timetowakeupHourTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup_hour);
+        EditText _timetowakeupMinTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup_min);
+
+        _dateTxt.setText(sleep.getCurrentDate());
+        _timetosleepHourTxt.setText(sleep.getTimetosleepHour());
+        _timetosleepMinTxt.setText(sleep.getTimetosleepMin());
+        _timetowakeupHourTxt.setText(sleep.getTimetowakeupHour());
+        _timetowakeupMinTxt.setText(sleep.getTimetowakeupMin());
     }
 }
