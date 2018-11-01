@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.healthy.a59070040.healthy.menu.Menu;
+import com.healthy.a59070040.healthy.sleep.SleepFragment;
 import com.healthy.a59070040.healthy.weight.WeightFragment;
 
 import java.util.ArrayList;
@@ -60,6 +61,9 @@ public class MenuFragment extends Fragment {
                 } else if(_menus.getMenu().get(i).equals("Weight")){
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).addToBackStack("to_weight").commit();
                     Log.d("MENU", "Selected on Weight Menu");
+                } else if(_menus.getMenu().get(i).equals("Sleep")) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new SleepFragment()).commit();
+                    Log.d("MENU", "Logout Completed");
                 } else if(_menus.getMenu().get(i).equals("Sign out")) {
                     _mAuth.signOut();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
