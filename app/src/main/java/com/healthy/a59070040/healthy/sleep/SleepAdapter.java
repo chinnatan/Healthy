@@ -36,7 +36,7 @@ public class SleepAdapter extends ArrayAdapter<Sleep> {
 
         Sleep _row = sleepList.get(position);
         currentDate.setText(_row.getCurrentDate());
-        time.setText(_row.getTimetosleepHour() + ":" + _row.getTimetosleepMin() + " - " + _row.getTimetowakeupHour() + ":" + _row.getTimetowakeupMin());
+        time.setText(_row.getTimetosleep() + " - " + _row.getTimetowakeup());
         timeCalculate.setText(_row.getCounttime());
 
         return _sleepItem;

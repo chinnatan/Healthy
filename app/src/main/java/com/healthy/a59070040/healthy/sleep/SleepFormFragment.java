@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.healthy.a59070040.healthy.R;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SleepFormFragment extends Fragment {
 
     private SQLiteDatabase db;
@@ -64,38 +67,35 @@ public class SleepFormFragment extends Fragment {
 
     private void setData() {
         EditText _dateTxt = getView().findViewById(R.id.frg_sleep_form_date);
-        EditText _timetosleepHourTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep_hour);
-        EditText _timetosleepMinTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep_min);
-        EditText _timetowakeupHourTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup_hour);
-        EditText _timetowakeupMinTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup_min);
+        EditText _timetosleepTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep);
+        EditText _timetowakeupTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup);
 
         String _dateStr = _dateTxt.getText().toString();
-        String _timetosleepHourStr = _timetosleepHourTxt.getText().toString();
-        String _timetosleepMinStr = _timetosleepMinTxt.getText().toString();
-        String _timetowakeupHourStr = _timetowakeupHourTxt.getText().toString();
-        String _timetowakeupMinStr = _timetowakeupMinTxt.getText().toString();
+        String _timetosleepStr = _timetosleepTxt.getText().toString();
+        String _timetowakeupStr = _timetowakeupTxt.getText().toString();
 
-        if(_dateStr.isEmpty() || _timetosleepHourStr.isEmpty() || _timetosleepMinStr.isEmpty() || _timetowakeupHourStr.isEmpty() || _timetowakeupMinStr.isEmpty()) {
+        if(_dateStr.isEmpty() || _timetosleepStr.isEmpty() || _timetowakeupStr.isEmpty()) {
             Toast.makeText(getActivity(), "กรุณาใส่ข้อมูลให้ครบถ้วน", Toast.LENGTH_LONG).show();
             Log.d("FIELDEMPTY_SLEEPFORMFRAGMENT", "field is empty");
         } else {
             ContentValues contentValues = new ContentValues();
             contentValues.put("currentdate", _dateStr);
-            contentValues.put("timetosleephour", _timetosleepHourStr);
-            contentValues.put("timetosleepmin", _timetosleepMinStr);
-            contentValues.put("timetowakeuphour", _timetowakeupHourStr);
-            contentValues.put("timetowakeupmin", _timetowakeupMinStr);
+            contentValues.put("timetosleep", _timetosleepStr);
+            contentValues.put("timetowakeup", _timetowakeupStr);
 
-            int timetosleepHourInt = Integer.parseInt(_timetosleepHourStr);
-            int timetosleepMinInt = Integer.parseInt(_timetosleepMinStr);
-            int timetowakeupHourInt = Integer.parseInt(_timetowakeupHourStr);
-            int timetowakeupMinInt = Integer.parseInt(_timetowakeupMinStr);
+            String[] _timetosleepSplit = _timetosleepStr.split(":");
+            String[] _timetowakeupSplit = _timetowakeupStr.split(":");
 
-            int calculateHour = Math.abs(24 - timetosleepHourInt);
-            int calculateMin = Math.abs(00 - timetosleepMinInt);
+            int _timetosleepHourInt = Integer.parseInt(_timetosleepSplit[0]);
+            int _timetosleepMinInt = Integer.parseInt(_timetosleepSplit[1]);
+            int _timetowakeupHourInt = Integer.parseInt(_timetowakeupSplit[0]);
+            int _timetowakeupMinInt = Integer.parseInt(_timetowakeupSplit[1]);
 
-            int resultHour = calculateHour + timetowakeupHourInt;
-            int resultMin = calculateMin + timetowakeupMinInt;
+            int calculateHour = Math.abs(24 - _timetosleepHourInt);
+            int calculateMin = Math.abs(00 - _timetosleepMinInt);
+
+            int resultHour = calculateHour + _timetowakeupHourInt;
+            int resultMin = calculateMin + _timetowakeupMinInt;
 
             String resultMinStr;
             if(resultMin == 0) {
@@ -119,15 +119,11 @@ public class SleepFormFragment extends Fragment {
 
     private void loadData() {
         EditText _dateTxt = getView().findViewById(R.id.frg_sleep_form_date);
-        EditText _timetosleepHourTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep_hour);
-        EditText _timetosleepMinTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep_min);
-        EditText _timetowakeupHourTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup_hour);
-        EditText _timetowakeupMinTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup_min);
+        EditText _timetosleepTxt = getView().findViewById(R.id.frg_sleep_form_timetosleep);
+        EditText _timetowakeupTxt = getView().findViewById(R.id.frg_sleep_form_timetowakeup);
 
         _dateTxt.setText(sleep.getCurrentDate());
-        _timetosleepHourTxt.setText(sleep.getTimetosleepHour());
-        _timetosleepMinTxt.setText(sleep.getTimetosleepMin());
-        _timetowakeupHourTxt.setText(sleep.getTimetowakeupHour());
-        _timetowakeupMinTxt.setText(sleep.getTimetowakeupMin());
+        _timetosleepTxt.setText(sleep.getTimetosleep());
+        _timetowakeupTxt.setText(sleep.getTimetowakeup());
     }
 }

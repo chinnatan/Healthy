@@ -11,8 +11,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SQLiteDatabase myDB = openOrCreateDatabase("my.db", MODE_PRIVATE, null);
-        myDB.execSQL("CREATE TABLE IF NOT EXISTS sleep (_id INTEGER PRIMARY KEY AUTOINCREMENT, currentdate VARCHAR(200), timetosleephour VARCHAR(200), timetosleepmin VARCHAR(200), timetowakeuphour VARCHAR(200), timetowakeupmin VARCHAR(200), counttime VARCHAR(200))");
-        if(savedInstanceState == null) {
+        myDB.execSQL("CREATE TABLE IF NOT EXISTS sleep (_id INTEGER PRIMARY KEY AUTOINCREMENT, currentdate VARCHAR(200), timetosleep VARCHAR(200), timetowakeup VARCHAR(200), counttime VARCHAR(200))");
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
         }
     }

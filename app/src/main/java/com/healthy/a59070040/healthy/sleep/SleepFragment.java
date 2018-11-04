@@ -52,12 +52,10 @@ public class SleepFragment extends Fragment {
         while(cursor.moveToNext()) {
             int primaryId = cursor.getInt(0);
             String currentDate = cursor.getString(1);
-            String timetosleepHour = cursor.getString(2);
-            String timetosleepMin = cursor.getString(3);
-            String timetowakeupHour = cursor.getString(4);
-            String timetowakeupMin = cursor.getString(5);
-            String counttime = cursor.getString(6);
-            Sleep sleep = new Sleep(primaryId, currentDate, timetosleepHour, timetosleepMin, timetowakeupHour, timetowakeupMin, counttime);
+            String timetosleep = cursor.getString(2);
+            String timetowakeup = cursor.getString(3);
+            String counttime = cursor.getString(4);
+            Sleep sleep = new Sleep(primaryId, currentDate, timetosleep, timetowakeup, counttime);
             sleepArrayList.add(sleep);
         }
 
@@ -88,10 +86,8 @@ public class SleepFragment extends Fragment {
 
                 sleep.setPrimaryId(sleepData.getPrimaryId());
                 sleep.setCurrentDate(sleepData.getCurrentDate());
-                sleep.setTimetosleepHour(sleepData.getTimetosleepHour());
-                sleep.setTimetosleepMin(sleepData.getTimetosleepMin());
-                sleep.setTimetowakeupHour(sleepData.getTimetowakeupHour());
-                sleep.setTimetowakeupMin(sleepData.getTimetowakeupMin());
+                sleep.setTimetosleep(sleepData.getTimetosleep());
+                sleep.setTimetowakeup(sleepData.getTimetowakeup());
                 sleep.setCounttime(sleepData.getCounttime());
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new SleepFormFragment()).commit();
