@@ -14,12 +14,13 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.healthy.a59070040.healthy.menu.Menu;
+import com.healthy.a59070040.healthy.post.PostFragment;
 import com.healthy.a59070040.healthy.sleep.SleepFragment;
 import com.healthy.a59070040.healthy.weight.WeightFragment;
 
-import java.util.ArrayList;
-
 public class MenuFragment extends Fragment {
+
+    private static final String TAG = "MENU";
 
     FirebaseAuth _mAuth;
 
@@ -44,6 +45,7 @@ public class MenuFragment extends Fragment {
         _menus.addItem("Weight");
         _menus.addItem("Setup");
         _menus.addItem("Sleep");
+        _menus.addItem("Post");
         _menus.addItem("Sign out");
 
         ListView _menuList = getView().findViewById(R.id.menu_list);
@@ -54,20 +56,25 @@ public class MenuFragment extends Fragment {
         _menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("MENU", "Select on " + _menus.getMenu().get(i));
+                Log.d(TAG, "Select on " + _menus.getMenu().get(i));
                 if(_menus.getMenu().get(i).equals("BMI")) {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new BMIFragment()).addToBackStack("to_bmi").commit();
-                    Log.d("MENU", "Selected on BMI Menu");
+                    Log.d(TAG, "Selected on BMI Menu");
                 } else if(_menus.getMenu().get(i).equals("Weight")){
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new WeightFragment()).addToBackStack("to_weight").commit();
-                    Log.d("MENU", "Selected on Weight Menu");
+                    Log.d(TAG, "Selected on Weight Menu");
                 } else if(_menus.getMenu().get(i).equals("Sleep")) {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new SleepFragment()).commit();
-                    Log.d("MENU", "Logout Completed");
-                } else if(_menus.getMenu().get(i).equals("Sign out")) {
+                    Log.d(TAG, "Logout Completed");
+                } else if(_menus.getMenu().get(i).equals("Post")) {
+                    _mAuth.signOut();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new PostFragment()).commit();
+                    Log.d(TAG, "Logout Completed");
+                }
+                else if(_menus.getMenu().get(i).equals("Sign out")) {
                     _mAuth.signOut();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
-                    Log.d("MENU", "Logout Completed");
+                    Log.d(TAG, "Logout Completed");
                 }
                 _menuAdapter.notifyDataSetChanged();
             }
