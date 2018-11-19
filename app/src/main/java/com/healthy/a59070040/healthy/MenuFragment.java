@@ -68,7 +68,7 @@ public class MenuFragment extends Fragment {
                     Log.d(TAG, "Logout Completed");
                 } else if(_menus.getMenu().get(i).equals("Post")) {
                     _mAuth.signOut();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new PostFragment()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new PostFragment()).addToBackStack(null).commit();
                     Log.d(TAG, "Logout Completed");
                 }
                 else if(_menus.getMenu().get(i).equals("Sign out")) {

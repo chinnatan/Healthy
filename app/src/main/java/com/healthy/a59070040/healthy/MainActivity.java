@@ -19,7 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            finish();
+        }
     }
 }

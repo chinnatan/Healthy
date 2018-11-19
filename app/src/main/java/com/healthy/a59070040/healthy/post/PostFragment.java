@@ -105,7 +105,7 @@ public class PostFragment extends Fragment {
                 Post post = (Post) parent.getAdapter().getItem(position);
                 Fragment fragment = new CommentFragment();
                 Bundle bundle = new Bundle();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null);
                 bundle.putInt("postid", post.getId());
                 fragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.main_view, fragment);
@@ -119,7 +119,7 @@ public class PostFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new MenuFragment()).commit();
+                getActivity().onBackPressed();
             }
         });
     }

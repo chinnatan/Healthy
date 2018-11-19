@@ -107,7 +107,7 @@ public class CommentFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new PostFragment()).commit();
+                getActivity().onBackPressed();
             }
         });
     }
