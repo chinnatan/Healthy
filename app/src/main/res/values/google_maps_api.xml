@@ -3,6 +3,6 @@
 
     <string name="google_maps_key"
         templateMergeStrategy="preserve"
-        translatable="false">AIzaSyBl2Kr6G4icDj-Sydyj5guZCfqLk3vJCqg</string>
+        translatable="false"></string>
 
 </resources>
